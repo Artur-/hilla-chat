@@ -18,9 +18,15 @@ export class ChatView extends LitElement {
 
   render() {
     return html`
-      <div style="flex-grow: 1;overflow:auto;">${this.messages.map((message) => html`<div>${message}</div>`)}</div>
+      <div id="container" style="flex-grow: 1;overflow:auto;">
+        ${this.messages.map((message) => html`<div>${message}</div>`)}
+      </div>
       <vaadin-text-field autofocus autocomplete="off" @keydown=${this.messageInput}></vaadin-text-field>
     `;
+  }
+
+  protected updated(): void {
+    this.renderRoot.querySelector('#container')!.scrollTop=10000000;
   }
 
   private messageInput(e: KeyboardEvent) {
