@@ -14,11 +14,9 @@ import reactor.core.publisher.Sinks.Many;
 public class ChatEndpoint {
 
     private Many<String> chatSink;
-    private Flux<String> chat;
 
     public ChatEndpoint() {
         chatSink = Sinks.many().multicast().directBestEffort();
-        chat = chatSink.asFlux();
     }
 
     public void send(@Nonnull String message) {
@@ -29,6 +27,6 @@ public class ChatEndpoint {
 
     @Nonnull
     public Flux<@Nonnull String> join() {
-        return chat;
+        return chatSink.asFlux();
     }
 }
