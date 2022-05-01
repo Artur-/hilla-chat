@@ -20,9 +20,7 @@ public class ChatEndpoint {
     }
 
     public void send(@Nonnull String message) {
-        chatSink.emitNext(message, (signalType, emitResult) -> {
-            return (emitResult == EmitResult.FAIL_NON_SERIALIZED);
-        });
+        chatSink.emitNext(message, (signalType, emitResult) -> (emitResult == EmitResult.FAIL_NON_SERIALIZED));
     }
 
     @Nonnull
